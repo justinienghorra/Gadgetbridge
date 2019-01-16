@@ -313,9 +313,9 @@ public class ChartsActivity extends AbstractGBFragmentActivity implements Charts
             // getItem is called to instantiate the fragment for the given page.
             switch (position) {
                 case 0:
-                    return new ActivitySleepChartFragment();
+                    return new LiveActivityFragment();
                 case 1:
-                    return new SleepChartFragment();
+                    return new ActivitySleepChartFragment();
                 case 2:
                     return new WeekSleepChartFragment();
                 case 3:
@@ -323,7 +323,7 @@ public class ChartsActivity extends AbstractGBFragmentActivity implements Charts
                 case 4:
                     return new SpeedZonesFragment();
                 case 5:
-                    return new LiveActivityFragment();
+                    return new SleepChartFragment();
             }
             return null;
         }
@@ -342,9 +342,9 @@ public class ChartsActivity extends AbstractGBFragmentActivity implements Charts
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return getString(R.string.activity_sleepchart_activity_and_sleep);
+                    return getString(R.string.liveactivity_live_activity);
                 case 1:
-                    return getString(R.string.sleepchart_your_sleep);
+                    return getString(R.string.activity_sleepchart_activity_and_sleep);
                 case 2:
                     return getString(R.string.weeksleepchart_sleep_a_week);
                 case 3:
@@ -352,7 +352,7 @@ public class ChartsActivity extends AbstractGBFragmentActivity implements Charts
                 case 4:
                     return getString(R.string.stats_title);
                 case 5:
-                    return getString(R.string.liveactivity_live_activity);
+                    return getString(R.string.sleepchart_your_sleep);
             }
             return super.getPageTitle(position);
         }

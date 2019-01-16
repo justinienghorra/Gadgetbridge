@@ -1,3 +1,18 @@
+PhysioVibe
+===========
+Music recommendation based on BPM. Uses the wonderful code of Gadgetbridge software
+
+* Class LiveActivityFragment : 
+	- With the BroadcastReceiver, updates the realtime heartbeat (with addSample function)
+	- The value needs to be valid, it is verified with the HeartRateUtils instance.
+
+
+
+
+
+
+
+
 Gadgetbridge
 ============
 

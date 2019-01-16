@@ -2,37 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nodomain.freeyourgadget.gadgetbridge">
 
-    <!--
-        Comment in for testing Pebble Emulator
-        <uses-permission android:name="android.permission.INTERNET" />
-    -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.READ_CALL_LOG" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-    <uses-permission android:name="cyanogenmod.permission.ACCESS_WEATHER_MANAGER" />
-    <uses-permission android:name="cyanogenmod.permission.READ_WEATHER" />
-    <uses-permission android:name="org.omnirom.omnijaws.READ_WEATHER" />
-
     <uses-feature
         android:name="android.hardware.bluetooth"
         android:required="true" />
     <uses-feature
         android:name="android.hardware.bluetooth_le"
-        android:required="false" />
-    <uses-feature
-        android:name="android.hardware.telephony"
         android:required="false" />
 
     <application
@@ -73,10 +55,6 @@
         <activity
             android:name=".activities.AppBlacklistActivity"
             android:label="@string/title_activity_appblacklist"
-            android:parentActivityName=".activities.SettingsActivity" />
-        <activity
-            android:name=".activities.CalBlacklistActivity"
-            android:label="@string/title_activity_calblacklist"
             android:parentActivityName=".activities.SettingsActivity" />
         <activity
             android:name=".activities.FwAppInstallerActivity"
@@ -309,20 +287,6 @@
         <service android:name=".service.NotificationCollectorMonitorService" />
         <service android:name=".service.DeviceCommunicationService" />
 
-        <receiver
-            android:name=".externalevents.WeatherNotificationReceiver"
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="ru.gelin.android.weather.notification.ACTION_WEATHER_UPDATE_2" />
-            </intent-filter>
-        </receiver>
-
-        <activity android:name=".externalevents.WeatherNotificationConfig">
-            <intent-filter>
-                <action android:name="ru.gelin.android.weather.notification.ACTION_WEATHER_SKIN_PREFERENCES"/>
-            </intent-filter>
-        </activity>
-
         <receiver android:name=".externalevents.AutoStartReceiver"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
@@ -399,15 +363,6 @@
             android:label="@string/title_activity_charts"
             android:parentActivityName=".activities.ControlCenterv2" />
         <activity
-            android:name=".activities.ConfigureAlarms"
-            android:label="@string/title_activity_set_alarm"
-            android:parentActivityName=".activities.SettingsActivity" />
-        <activity
-            android:name=".activities.AlarmDetails"
-            android:label="@string/title_activity_alarm_details"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".activities.ConfigureAlarms" />
-        <activity
             android:name=".activities.VibrationActivity"
             android:label="@string/title_activity_vibration"
             android:parentActivityName=".activities.ControlCenterv2" />
@@ -429,17 +384,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/shared_paths" />
         </provider>
-
-        <receiver android:name=".SleepAlarmWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="nodomain.freeyourgadget.gadgetbridge.SLEEP_ALARM_WIDGET_CLICK" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/sleep_alarm_widget_info" />
-        </receiver>
 
         <activity
             android:launchMode="singleTask"

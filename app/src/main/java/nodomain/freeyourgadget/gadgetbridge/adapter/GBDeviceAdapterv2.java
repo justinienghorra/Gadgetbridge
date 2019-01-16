@@ -52,7 +52,6 @@ import java.util.Locale;
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
 import nodomain.freeyourgadget.gadgetbridge.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.ActivitySummariesActivity;
-import nodomain.freeyourgadget.gadgetbridge.activities.ConfigureAlarms;
 import nodomain.freeyourgadget.gadgetbridge.activities.VibrationActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ChartsActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -193,21 +192,6 @@ public class GBDeviceAdapterv2 extends RecyclerView.Adapter<GBDeviceAdapterv2.Vi
                                                          }
                                                      }
                                                  }
-        );
-
-        //set alarms
-        holder.setAlarmsView.setVisibility(coordinator.supportsAlarmConfiguration() ? View.VISIBLE : View.GONE);
-        holder.setAlarmsView.setOnClickListener(new View.OnClickListener()
-
-                                                {
-                                                    @Override
-                                                    public void onClick(View v) {
-                                                        Intent startIntent;
-                                                        startIntent = new Intent(context, ConfigureAlarms.class);
-                                                        startIntent.putExtra(GBDevice.EXTRA_DEVICE, device);
-                                                        context.startActivity(startIntent);
-                                                    }
-                                                }
         );
 
         //show graphs
@@ -509,7 +493,6 @@ public class GBDeviceAdapterv2 extends RecyclerView.Adapter<GBDeviceAdapterv2.Vi
             busyIndicator = view.findViewById(R.id.device_busy_indicator);
             takeScreenshotView = view.findViewById(R.id.device_action_take_screenshot);
             manageAppsView = view.findViewById(R.id.device_action_manage_apps);
-            setAlarmsView = view.findViewById(R.id.device_action_set_alarms);
             showActivityGraphs = view.findViewById(R.id.device_action_show_activity_graphs);
             showActivityTracks = view.findViewById(R.id.device_action_show_activity_tracks);
             deviceInfoView = view.findViewById(R.id.device_info_image);

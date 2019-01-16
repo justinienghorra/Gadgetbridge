@@ -49,11 +49,8 @@ import nodomain.freeyourgadget.gadgetbridge.GBApplication;
 import nodomain.freeyourgadget.gadgetbridge.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
-import nodomain.freeyourgadget.gadgetbridge.externalevents.AlarmClockReceiver;
-import nodomain.freeyourgadget.gadgetbridge.externalevents.AlarmReceiver;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.BluetoothConnectReceiver;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.BluetoothPairingRequestReceiver;
-import nodomain.freeyourgadget.gadgetbridge.externalevents.CMWeatherReceiver;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.CalendarReceiver;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.MusicPlaybackReceiver;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.OmniJawsObserver;
@@ -185,12 +182,9 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
     private TimeChangeReceiver mTimeChangeReceiver = null;
     private BluetoothConnectReceiver mBlueToothConnectReceiver = null;
     private BluetoothPairingRequestReceiver mBlueToothPairingRequestReceiver = null;
-    private AlarmClockReceiver mAlarmClockReceiver = null;
     private GBAutoFetchReceiver mGBAutoFetchReceiver = null;
 
-    private AlarmReceiver mAlarmReceiver = null;
     private CalendarReceiver mCalendarReceiver = null;
-    private CMWeatherReceiver mCMWeatherReceiver = null;
     private OmniJawsObserver mOmniJawsObserver = null;
     private Random mRandom = new Random();
 
@@ -658,18 +652,10 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                     registerReceiver(mCalendarReceiver, calendarIntentFilter);
                 }
             }
-            if (mAlarmReceiver == null) {
-                mAlarmReceiver = new AlarmReceiver();
-                registerReceiver(mAlarmReceiver, new IntentFilter("DAILY_ALARM"));
-            }
         } else {
             if (mCalendarReceiver != null) {
                 unregisterReceiver(mCalendarReceiver);
                 mCalendarReceiver = null;
-            }
-            if (mAlarmReceiver != null) {
-                unregisterReceiver(mAlarmReceiver);
-                mAlarmReceiver = null;
             }
         }
 
@@ -711,19 +697,6 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
             if (mBlueToothPairingRequestReceiver == null) {
                 mBlueToothPairingRequestReceiver = new BluetoothPairingRequestReceiver(this);
                 registerReceiver(mBlueToothPairingRequestReceiver, new IntentFilter(BluetoothDevice.ACTION_PAIRING_REQUEST));
-            }
-            if (mAlarmClockReceiver == null) {
-                mAlarmClockReceiver = new AlarmClockReceiver();
-                IntentFilter filter = new IntentFilter();
-                filter.addAction(AlarmClockReceiver.ALARM_ALERT_ACTION);
-                filter.addAction(AlarmClockReceiver.ALARM_DONE_ACTION);
-                filter.addAction(AlarmClockReceiver.GOOGLE_CLOCK_ALARM_ALERT_ACTION);
-                filter.addAction(AlarmClockReceiver.GOOGLE_CLOCK_ALARM_DONE_ACTION);
-                registerReceiver(mAlarmClockReceiver, filter);
-            }
-            if (mCMWeatherReceiver == null && coordinator != null && coordinator.supportsWeather()) {
-                mCMWeatherReceiver = new CMWeatherReceiver();
-                registerReceiver(mCMWeatherReceiver, new IntentFilter("GB_UPDATE_WEATHER"));
             }
             if (mOmniJawsObserver == null && coordinator != null && coordinator.supportsWeather()) {
                 try {
@@ -767,14 +740,6 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
             if (mBlueToothPairingRequestReceiver != null) {
                 unregisterReceiver(mBlueToothPairingRequestReceiver);
                 mBlueToothPairingRequestReceiver = null;
-            }
-            if (mAlarmClockReceiver != null) {
-                unregisterReceiver(mAlarmClockReceiver);
-                mAlarmClockReceiver = null;
-            }
-            if (mCMWeatherReceiver != null) {
-                unregisterReceiver(mCMWeatherReceiver);
-                mCMWeatherReceiver = null;
             }
             if (mOmniJawsObserver != null) {
                 getContentResolver().unregisterContentObserver(mOmniJawsObserver);

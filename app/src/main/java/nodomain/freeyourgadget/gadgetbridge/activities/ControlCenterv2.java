@@ -255,15 +255,6 @@ public class ControlCenterv2 extends AppCompatActivity
             case R.id.action_quit:
                 GBApplication.quit();
                 return true;
-            case R.id.donation_link:
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://liberapay.com/Gadgetbridge")); //TODO: centralize if ever used somewhere else
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(i);
-                return true;
-            case R.id.external_changelog:
-                ChangeLog cl = createChangeLog();
-                cl.getFullLogDialog().show();
-                return true;
         }
 
         return true;
