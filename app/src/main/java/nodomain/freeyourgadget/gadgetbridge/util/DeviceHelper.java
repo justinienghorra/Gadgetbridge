@@ -21,7 +21,6 @@ package nodomain.freeyourgadget.gadgetbridge.util;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import org.slf4j.Logger;

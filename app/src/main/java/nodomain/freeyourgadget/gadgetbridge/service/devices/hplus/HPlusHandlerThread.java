@@ -24,7 +24,6 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.hplus;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

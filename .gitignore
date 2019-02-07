@@ -2,9 +2,6 @@
 *.apk
 *.ap_
 
-# Music files
-*.mp3
-
 # Files for the Dalvik VM
 *.dex
 
@@ -30,6 +27,9 @@ proguard/
 
 .idea
 *.iml
+
+# Non foss music
+*.mp3
 
 MPChartLib
 

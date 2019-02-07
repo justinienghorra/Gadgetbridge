@@ -19,9 +19,6 @@ package nodomain.freeyourgadget.gadgetbridge.devices.no1f1;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.Property;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractSampleProvider;
@@ -29,7 +26,6 @@ import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.entities.No1F1ActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.entities.No1F1ActivitySampleDao;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
-import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;
 
 public class No1F1SampleProvider extends AbstractSampleProvider<No1F1ActivitySample> {
 

@@ -18,7 +18,7 @@
         android:required="false" />
 
     <application
-        android:name=".GBApplication"
+        android:name="nodomain.freeyourgadget.gadgetbridge.GBApplication"
         android:allowBackup="false"
         android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
@@ -26,7 +26,7 @@
         android:label="@string/app_name"
         android:theme="@style/GadgetbridgeTheme">
         <activity
-            android:name=".activities.ControlCenterv2"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
             android:label="@string/title_activity_controlcenter"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -36,30 +36,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.SettingsActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
-            android:name=".devices.miband.MiBandPreferencesActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandPreferencesActivity"
             android:label="@string/preferences_miband_settings"
-            android:parentActivityName=".activities.SettingsActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity" />
         <activity
-            android:name=".activities.ActivitySummariesActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.ActivitySummariesActivity"
             android:label="@string/activity_summaries"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:launchMode="singleTop"
-            android:name=".activities.appmanager.AppManagerActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity"
             android:label="@string/title_activity_appmanager"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
-            android:name=".activities.AppBlacklistActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.AppBlacklistActivity"
             android:label="@string/title_activity_appblacklist"
-            android:parentActivityName=".activities.SettingsActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity" />
         <activity
-            android:name=".activities.FwAppInstallerActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.FwAppInstallerActivity"
             android:label="@string/title_activity_fw_app_insaller"
-            android:parentActivityName=".activities.ControlCenterv2">
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -277,17 +277,17 @@
         </activity>
 
         <service
-            android:name=".externalevents.NotificationListener"
+            android:name="nodomain.freeyourgadget.gadgetbridge.externalevents.NotificationListener"
             android:label="@string/app_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
-        <service android:name=".service.NotificationCollectorMonitorService" />
-        <service android:name=".service.DeviceCommunicationService" />
+        <service android:name="nodomain.freeyourgadget.gadgetbridge.service.NotificationCollectorMonitorService" />
+        <service android:name="nodomain.freeyourgadget.gadgetbridge.service.DeviceCommunicationService" />
 
-        <receiver android:name=".externalevents.AutoStartReceiver"
+        <receiver android:name="nodomain.freeyourgadget.gadgetbridge.externalevents.AutoStartReceiver"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -296,21 +296,21 @@
         </receiver>
 
         <receiver
-            android:name=".externalevents.BluetoothStateChangeReceiver"
+            android:name="nodomain.freeyourgadget.gadgetbridge.externalevents.BluetoothStateChangeReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".service.receivers.GBMusicControlReceiver"
+            android:name="nodomain.freeyourgadget.gadgetbridge.service.receivers.GBMusicControlReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="nodomain.freeyourgadget.gadgetbridge.musiccontrol" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".service.receivers.GBCallControlReceiver"
+            android:name="nodomain.freeyourgadget.gadgetbridge.service.receivers.GBCallControlReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="nodomain.freeyourgadget.gadgetbridge.callcontrol" />
@@ -328,50 +328,50 @@
             dialog when changing orientation
          -->
         <activity
-            android:name=".activities.DebugActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.DebugActivity"
             android:label="@string/title_activity_debug"
-            android:parentActivityName=".activities.ControlCenterv2"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.DbManagementActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.DbManagementActivity"
             android:label="@string/title_activity_db_management"
-            android:parentActivityName=".activities.ControlCenterv2"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.DiscoveryActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.DiscoveryActivity"
             android:label="@string/title_activity_discovery"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
-            android:name=".activities.AndroidPairingActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.AndroidPairingActivity"
             android:label="@string/title_activity_android_pairing" />
         <activity
-            android:name=".devices.miband.MiBandPairingActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandPairingActivity"
             android:label="@string/title_activity_mi_band_pairing" />
         <activity
-            android:name=".devices.pebble.PebblePairingActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.devices.pebble.PebblePairingActivity"
             android:label="@string/title_activity_pebble_pairing" />
         <activity
-            android:name=".devices.watch9.Watch9PairingActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.devices.watch9.Watch9PairingActivity"
             android:label="@string/title_activity_watch9_pairing"  />
         <activity
-            android:name=".devices.watch9.Watch9CalibrationActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.devices.watch9.Watch9CalibrationActivity"
             android:label="@string/title_activity_watch9_calibration"  />
         <activity
-            android:name=".activities.charts.ChartsActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.charts.ChartsActivity"
             android:label="@string/title_activity_charts"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
-            android:name=".activities.VibrationActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.VibrationActivity"
             android:label="@string/title_activity_vibration"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
-            android:name=".activities.FindPhoneActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.FindPhoneActivity"
             android:label="Find Phone" />
 
         <provider
-            android:name=".contentprovider.PebbleContentProvider"
+            android:name="nodomain.freeyourgadget.gadgetbridge.contentprovider.PebbleContentProvider"
             android:authorities="com.getpebble.android.provider"
             android:exported="true" />
 
@@ -389,9 +389,9 @@
             android:launchMode="singleTask"
             android:allowTaskReparenting="true"
             android:clearTaskOnLaunch="true"
-            android:name=".activities.ExternalPebbleJSActivity"
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.ExternalPebbleJSActivity"
             android:label="@string/app_configure"
-            android:parentActivityName=".activities.appmanager.AppManagerActivity">
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />

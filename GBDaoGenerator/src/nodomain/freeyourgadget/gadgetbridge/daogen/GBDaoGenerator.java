@@ -15,8 +15,6 @@
  */
 package nodomain.freeyourgadget.gadgetbridge.daogen;
 
-import java.util.Date;
-
 import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;
 import de.greenrobot.daogenerator.Index;

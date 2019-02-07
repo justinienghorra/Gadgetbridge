@@ -20,7 +20,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -29,6 +31,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,9 +64,7 @@ import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
-import nodomain.freeyourgadget.gadgetbridge.model.ActivityUser;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
-import nodomain.freeyourgadget.gadgetbridge.model.Measurement;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 public class LiveActivityFragment extends AbstractChartFragment {
@@ -76,6 +77,7 @@ public class LiveActivityFragment extends AbstractChartFragment {
     private LineDataSet mHistorySet;
     private BarLineChartBase mStepsPerMinuteHistoryChart;
     private TextView mMaxHeartRateView;
+    private TextView mMeanHeartRateView;
 
     private final Steps mSteps = new Steps();
     private ScheduledExecutorService pulseScheduler;
@@ -85,6 +87,18 @@ public class LiveActivityFragment extends AbstractChartFragment {
     private int mMinHeartRate = 255;
     private int mMaxHeartRate = 0;
     private TimestampTranslation tsTranslation;
+
+    private int nbHeartRate = 0;
+    private int sumHeartRate = 0;
+    private int meanHeartRate = 0;
+
+    private MediaPlayer mediaPlayer = new MediaPlayer();
+    private int musicStep = 0;
+    private boolean calm = false;
+    private boolean calmNeeded = false;
+
+    private Button mRelaxing;
+    private Button mLively;
 
     private class Steps {
         private int steps;
@@ -164,6 +178,63 @@ public class LiveActivityFragment extends AbstractChartFragment {
         }
     };
 
+    private int nextStep(int heartRate) {
+        if (this.calmNeeded) {
+            if((this.calmNeeded && this.calm) &&
+                ((heartRate >= 90 && this.musicStep == 1) ||
+                (heartRate < 90 && heartRate >= 80 && this.musicStep == 2)||
+                (heartRate < 80 && this.musicStep == 3)))
+                return -1;
+            if (heartRate >= 90)
+                return 1;
+            if (heartRate >= 80)
+                return 2;
+            else
+                return 3;
+        } else {
+            if((!this.calmNeeded && !this.calm) &&
+                (heartRate <= 85 && this.musicStep == 1) ||
+                (heartRate > 85 && heartRate <= 95 && this.musicStep == 2) ||
+                (heartRate > 95 && this.musicStep == 3))
+                return -1;
+            if (heartRate <= 85)
+                return 1;
+            if (heartRate <= 95)
+                return 2;
+            else
+                return 3;
+        }
+    }
+
+    private void playMusic() {
+        int nextStep = this.nextStep(this.meanHeartRate);
+        this.calm = this.calmNeeded;
+        System.out.println("\n\n\n Next step : "+nextStep);
+        if(nextStep == -1)
+            return;
+        this.mediaPlayer.stop();
+        this.mediaPlayer.reset();
+        this.mediaPlayer.release();
+
+        if (calm) {
+            if (nextStep == 1)
+                this.mediaPlayer = MediaPlayer.create(getActivity(), R.raw.flamingo);
+            if (nextStep == 2)
+                this.mediaPlayer = MediaPlayer.create(getActivity(), R.raw.sakura_trees);
+            if (nextStep == 3)
+                this.mediaPlayer = MediaPlayer.create(getActivity(), R.raw.take_me_away);
+        } else {
+            if (nextStep == 1)
+                this.mediaPlayer = MediaPlayer.create(getActivity(), R.raw.begin_again);
+            if (nextStep == 2)
+                this.mediaPlayer = MediaPlayer.create(getActivity(), R.raw.superlove);
+            if (nextStep == 3)
+                this.mediaPlayer = MediaPlayer.create(getActivity(), R.raw.off_guard);
+        }
+        this.musicStep = nextStep;
+        this.mediaPlayer.start();
+    }
+
     private void addSample(ActivitySample sample) {
         int heartRate = sample.getHeartRate();
         int timestamp = tsTranslation.shorten(sample.getTimestamp());
@@ -171,6 +242,15 @@ public class LiveActivityFragment extends AbstractChartFragment {
 
         if (HeartRateUtils.getInstance().isValidHeartRateValue(heartRate)) {
             setCurrentHeartRate(heartRate, timestamp);
+            this.sumHeartRate += heartRate;
+            this.nbHeartRate += 1;
+            if(this.nbHeartRate >= 5) {
+                this.meanHeartRate = this.sumHeartRate/this.nbHeartRate;
+                System.out.println("----------------------------\n \nMean heart rate :   " + this.meanHeartRate + "\n \n");
+                playMusic();
+                this.nbHeartRate = 0;
+                this.sumHeartRate = 0;
+            }
         }
         int steps = sample.getSteps();
         if (steps > 0) {
@@ -195,6 +275,9 @@ public class LiveActivityFragment extends AbstractChartFragment {
         }
         if (mMinHeartRate > mHeartRate) {
             mMinHeartRate = mHeartRate;
+        }
+        if (this.meanHeartRate != 0) {
+            mMeanHeartRateView.setText(getContext().getString(R.string.live_activity_mean_heart_rate, this.meanHeartRate));
         }
         mMaxHeartRateView.setText(getContext().getString(R.string.live_activity_max_heart_rate, mMinHeartRate, mMaxHeartRate));
         mHeartRateView.setText(getContext().getString(R.string.live_activity_big_heart_rate, heartRate));
@@ -273,6 +356,37 @@ public class LiveActivityFragment extends AbstractChartFragment {
         setupHistoryChart(mStepsPerMinuteHistoryChart);
         mMaxHeartRateView = rootView.findViewById(R.id.livechart_max_heart_rate);
         mHeartRateView = rootView.findViewById(R.id.livechart_heart_rate);
+        mMeanHeartRateView = rootView.findViewById(R.id.livechart_mean_heart_rate);
+
+        mRelaxing = rootView.findViewById(R.id.relaxing);
+        mRelaxing.setBackgroundColor(Color.GRAY);
+        mRelaxing.setClickable(true);
+        mRelaxing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                calmNeeded = true;
+                mRelaxing.setClickable(false);
+                mRelaxing.setBackgroundColor(Color.CYAN);
+                mLively.setClickable(true);
+                mLively.setBackgroundColor(Color.GRAY);
+            }
+        });
+
+        mLively = rootView.findViewById(R.id.lively);
+        mLively.setBackgroundColor(Color.CYAN);
+        mLively.setClickable(false);
+        mLively.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                calmNeeded = false;
+                mLively.setClickable(false);
+                mLively.setBackgroundColor(Color.CYAN);
+                mRelaxing.setClickable(true);
+                mRelaxing.setBackgroundColor(Color.GRAY);
+            }
+        });
 
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mReceiver, filterLocal);
 
@@ -376,6 +490,8 @@ public class LiveActivityFragment extends AbstractChartFragment {
 
     @Override
     public void onDestroyView() {
+        this.mediaPlayer.stop();
+        this.mediaPlayer.release();
         onMadeInvisibleInActivity();
         LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mReceiver);
         super.onDestroyView();
