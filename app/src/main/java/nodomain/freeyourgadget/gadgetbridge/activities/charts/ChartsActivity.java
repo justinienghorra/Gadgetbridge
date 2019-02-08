@@ -57,8 +57,6 @@ import nodomain.freeyourgadget.gadgetbridge.util.LimitedQueue;
 
 public class ChartsActivity extends AbstractGBFragmentActivity implements ChartsHost {
 
-    private TextView mDateControl;
-
     private Date mStartDate;
     private Date mEndDate;
     private SwipeRefreshLayout swipeLayout;
@@ -105,7 +103,6 @@ public class ChartsActivity extends AbstractGBFragmentActivity implements Charts
         }
     };
     private GBDevice mGBDevice;
-    private ViewGroup dateBar;
 
     private void refreshBusyState(GBDevice dev) {
         if (dev.isBusy()) {
@@ -164,31 +161,6 @@ public class ChartsActivity extends AbstractGBFragmentActivity implements Charts
                 enableSwipeRefresh(state == ViewPager.SCROLL_STATE_IDLE);
             }
         });
-
-        dateBar = findViewById(R.id.charts_date_bar);
-        mDateControl = findViewById(R.id.charts_text_date);
-        mDateControl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String detailedDuration = formatDetailedDuration();
-                new ShowDurationDialog(detailedDuration, ChartsActivity.this).show();
-            }
-        });
-
-        Button mPrevButton = findViewById(R.id.charts_previous);
-        mPrevButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handlePrevButtonClicked();
-            }
-        });
-        Button mNextButton = findViewById(R.id.charts_next);
-        mNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleNextButtonClicked();
-            }
-        });
     }
 
     private String formatDetailedDuration() {
@@ -227,6 +199,16 @@ public class ChartsActivity extends AbstractGBFragmentActivity implements Charts
     @Override
     public Date getEndDate() {
         return mEndDate;
+    }
+
+    @Override
+    public void setDateInfo(String dateInfo) {
+
+    }
+
+    @Override
+    public ViewGroup getDateBar() {
+        return null;
     }
 
     private void handleNextButtonClicked() {
@@ -282,19 +264,10 @@ public class ChartsActivity extends AbstractGBFragmentActivity implements Charts
         }
     }
 
-    @Override
-    public void setDateInfo(String dateInfo) {
-        mDateControl.setText(dateInfo);
-    }
 
     @Override
     protected AbstractFragmentPagerAdapter createFragmentPagerAdapter(FragmentManager fragmentManager) {
         return new SectionsPagerAdapter(fragmentManager);
-    }
-
-    @Override
-    public ViewGroup getDateBar() {
-        return dateBar;
     }
 
 
@@ -314,28 +287,13 @@ public class ChartsActivity extends AbstractGBFragmentActivity implements Charts
             switch (position) {
                 case 0:
                     return new LiveActivityFragment();
-                case 1:
-                    return new ActivitySleepChartFragment();
-                case 2:
-                    return new WeekSleepChartFragment();
-                case 3:
-                    return new WeekStepsChartFragment();
-                case 4:
-                    return new SpeedZonesFragment();
-                case 5:
-                    return new SleepChartFragment();
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            // Show 5 or 6 total pages.
-            DeviceCoordinator coordinator = DeviceHelper.getInstance().getCoordinator(mGBDevice);
-            if (coordinator.supportsRealtimeData()) {
-                return 6;
-            }
-            return 5;
+            return 1;
         }
 
         @Override
@@ -343,16 +301,6 @@ public class ChartsActivity extends AbstractGBFragmentActivity implements Charts
             switch (position) {
                 case 0:
                     return getString(R.string.liveactivity_live_activity);
-                case 1:
-                    return getString(R.string.activity_sleepchart_activity_and_sleep);
-                case 2:
-                    return getString(R.string.weeksleepchart_sleep_a_week);
-                case 3:
-                    return getString(R.string.weekstepschart_steps_a_week);
-                case 4:
-                    return getString(R.string.stats_title);
-                case 5:
-                    return getString(R.string.sleepchart_your_sleep);
             }
             return super.getPageTitle(position);
         }

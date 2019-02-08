@@ -292,7 +292,7 @@
   <string name="live_activity_steps_history">Historique de pas</string>
   <string name="live_activity_current_steps_per_minute">Pas/minute actuel</string>
   <string name="live_activity_total_steps">Nombre total de pas</string>
-  <string name="live_activity_steps_per_minute_history">Historique de pas/minute</string>
+  <string name="live_activity_steps_per_minute_history">Fréquence cardiaque au cours du temps</string>
   <string name="live_activity_start_your_activity">Démarrez votre activité</string>
   <string name="abstract_chart_fragment_kind_activity">Activité</string>
   <string name="abstract_chart_fragment_kind_light_sleep">Sommeil léger</string>
@@ -589,14 +589,14 @@ Temps de sommeil préféré en heures</string>
 
     <string name="lively">Entraînante</string>
     <string name="relaxing">Relaxante</string>
-    <string name="live_activity_song_played">Musique jouée : </string>
+    <string name="live_activity_song_played">Musique jouée: </string>
     <string name="live_activity_current_song">%1$s</string>
 
     <string name="lack_of_step">Manque d\'activité: %1$d</string>
     <string name="overstep">Trop d\'activité: %1$d</string>
-    <string name="live_activity_big_heart_rate">Rythme cardiaque\n%1$d BPM</string>
-    <string name="live_activity_mean_heart_rate">Rythme cardiaque (5 dernières mesures): %1$d BPM</string>
-    <string name="live_activity_max_heart_rate">Rythme cardiaque minimum / maximum: %1$d / %2$d</string>
+    <string name="live_activity_big_heart_rate">Fréquence cardiaque\n%1$d BPM</string>
+    <string name="live_activity_mean_heart_rate">Fréquence cardiaque (5 dernières mesures): %1$d BPM</string>
+    <string name="live_activity_max_heart_rate">Fréquence cardiaque minimum / maximum: %1$d / %2$d</string>
     <string name="you_slept">Vous avez dormi de %1$s à %2$s</string>
     <string name="you_did_not_sleep">Vous n\'avez pas dormi</string>
     <string name="mi3_prefs_band_screen_unlock_summary">Glisser le doigt vers le haut pour débloquer l\'écran du bracelet</string>

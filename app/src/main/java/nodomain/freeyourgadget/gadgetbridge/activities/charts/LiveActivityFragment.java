@@ -99,6 +99,8 @@ public class LiveActivityFragment extends AbstractChartFragment {
 
     private Button mRelaxing;
     private Button mLively;
+    private TextView mSongPlayed;
+    private TextView mCurrentSong;
 
     private class Steps {
         private int steps;
@@ -207,6 +209,7 @@ public class LiveActivityFragment extends AbstractChartFragment {
     }
 
     private void playMusic() {
+        this.mSongPlayed.setVisibility(View.VISIBLE);
         int nextStep = this.nextStep(this.meanHeartRate);
         this.calm = this.calmNeeded;
         System.out.println("\n\n\n Next step : "+nextStep);
@@ -217,19 +220,33 @@ public class LiveActivityFragment extends AbstractChartFragment {
         this.mediaPlayer.release();
 
         if (calm) {
-            if (nextStep == 1)
+            if (nextStep == 1) {
                 this.mediaPlayer = MediaPlayer.create(getActivity(), R.raw.flamingo);
-            if (nextStep == 2)
+                this.mCurrentSong.setText(getContext().getString(R.string.live_activity_current_song,
+                        "Flamingosis - Flight of the Flamingo (87 BPM)"));
+            } else if (nextStep == 2) {
                 this.mediaPlayer = MediaPlayer.create(getActivity(), R.raw.sakura_trees);
-            if (nextStep == 3)
+                this.mCurrentSong.setText(getContext().getString(R.string.live_activity_current_song,
+                        "Saib - Sakura Trees (80 BPM)"));
+            } else if (nextStep == 3) {
                 this.mediaPlayer = MediaPlayer.create(getActivity(), R.raw.take_me_away);
+                this.mCurrentSong.setText(getContext().getString(R.string.live_activity_current_song,
+                        "Daniel Caesar - Take Me Away (74 BPM)"));
+            }
         } else {
-            if (nextStep == 1)
+            if (nextStep == 1) {
                 this.mediaPlayer = MediaPlayer.create(getActivity(), R.raw.begin_again);
-            if (nextStep == 2)
+                this.mCurrentSong.setText(getContext().getString(R.string.live_activity_current_song,
+                        "Purity Ring - Begin Again (92 BPM)"));
+            } else if (nextStep == 2) {
                 this.mediaPlayer = MediaPlayer.create(getActivity(), R.raw.superlove);
-            if (nextStep == 3)
+                this.mCurrentSong.setText(getContext().getString(R.string.live_activity_current_song,
+                        "Whethan - Superlove (98 BPM)"));
+            } else if (nextStep == 3) {
                 this.mediaPlayer = MediaPlayer.create(getActivity(), R.raw.off_guard);
+                this.mCurrentSong.setText(getContext().getString(R.string.live_activity_current_song,
+                    "Alexander Lewis - Off Guard (106 BPM)"));
+            }
         }
         this.musicStep = nextStep;
         this.mediaPlayer.start();
@@ -246,7 +263,6 @@ public class LiveActivityFragment extends AbstractChartFragment {
             this.nbHeartRate += 1;
             if(this.nbHeartRate >= 5) {
                 this.meanHeartRate = this.sumHeartRate/this.nbHeartRate;
-                System.out.println("----------------------------\n \nMean heart rate :   " + this.meanHeartRate + "\n \n");
                 playMusic();
                 this.nbHeartRate = 0;
                 this.sumHeartRate = 0;
@@ -331,7 +347,6 @@ public class LiveActivityFragment extends AbstractChartFragment {
             // ignore the first default value to keep the "no-data-description" visible
             if (force || mSteps.getTotalSteps() > 0) {
                 LineData data = new LineData();
-                data.addDataSet(mHistorySet);
                 data.addDataSet(mHeartRateSet);
                 mStepsPerMinuteHistoryChart.setData(data);
                 return true;
@@ -358,33 +373,31 @@ public class LiveActivityFragment extends AbstractChartFragment {
         mHeartRateView = rootView.findViewById(R.id.livechart_heart_rate);
         mMeanHeartRateView = rootView.findViewById(R.id.livechart_mean_heart_rate);
 
+        mSongPlayed = rootView.findViewById(R.id.song_played);
+        mSongPlayed.setVisibility(View.GONE);
+        mCurrentSong = rootView.findViewById(R.id.current_song);
+
         mRelaxing = rootView.findViewById(R.id.relaxing);
-        mRelaxing.setBackgroundColor(Color.GRAY);
-        mRelaxing.setClickable(true);
+        mRelaxing.setEnabled(true);
         mRelaxing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
                 calmNeeded = true;
-                mRelaxing.setClickable(false);
-                mRelaxing.setBackgroundColor(Color.CYAN);
-                mLively.setClickable(true);
-                mLively.setBackgroundColor(Color.GRAY);
+                mRelaxing.setEnabled(false);
+                mLively.setEnabled(true);
             }
         });
 
         mLively = rootView.findViewById(R.id.lively);
-        mLively.setBackgroundColor(Color.CYAN);
-        mLively.setClickable(false);
+        mLively.setEnabled(false);
         mLively.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
                 calmNeeded = false;
-                mLively.setClickable(false);
-                mLively.setBackgroundColor(Color.CYAN);
-                mRelaxing.setClickable(true);
-                mRelaxing.setBackgroundColor(Color.GRAY);
+                mLively.setEnabled(false);
+                mRelaxing.setEnabled(true);
             }
         });
 

@@ -19,41 +19,6 @@
             android:layout_weight="1"
             tools:context="nodomain.freeyourgadget.gadgetbridge.activities.charts.ChartsActivity">
 
-            <android.support.design.widget.TabLayout
-                android:id="@+id/charts_pagerTabStrip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                app:tabMode="scrollable" />
         </nodomain.freeyourgadget.gadgetbridge.activities.charts.NonSwipeableViewPager>
-
-        <LinearLayout
-            android:id="@+id/charts_date_bar"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="fill_horizontal"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/charts_previous"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="&lt;" />
-
-            <TextView
-                android:id="@+id/charts_text_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_weight="1"
-                android:text="Today" />
-
-            <Button
-                android:id="@+id/charts_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=">" />
-
-        </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

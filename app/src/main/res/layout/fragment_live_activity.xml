@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     grid:columnCount="2">
 
-
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/livechart_steps_per_minute_history"
         android:layout_width="match_parent"
@@ -30,30 +29,52 @@
         grid:layout_columnWeight="1" />
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center_horizontal"
-        grid:layout_columnWeight="1">
+        grid:layout_columnWeight="1"
+        grid:layout_rowWeight="1">
 
-        <Button
-            android:id="@+id/relaxing"
+        <TextView
+            android:id="@+id/livechart_heart_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/relaxing"/>
+            android:paddingTop="50px"
+            android:textAlignment="center"
+            android:textSize="30sp" />
 
-        <Button
-            android:id="@+id/lively"
+        <TextView
+            android:id="@+id/song_played"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lively"/>
+            android:paddingTop="50px"
+            android:textAlignment="center"
+            android:text="@string/live_activity_song_played"/>
+
+        <TextView
+            android:id="@+id/current_song"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center" />
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:paddingTop="20px">
+
+            <Button
+                android:id="@+id/relaxing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/relaxing"/>
+
+            <Button
+                android:id="@+id/lively"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lively"/>
+        </LinearLayout>
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/livechart_heart_rate"
-        android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        grid:layout_columnSpan="2"
-        grid:layout_columnWeight="1" />
 
 </android.support.v7.widget.GridLayout>
