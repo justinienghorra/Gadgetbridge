@@ -94,8 +94,8 @@ public class LiveActivityFragment extends AbstractChartFragment {
 
     private MediaPlayer mediaPlayer = new MediaPlayer();
     private int musicStep = 0;
-    private boolean calm = false;
-    private boolean calmNeeded = false;
+    private boolean calm = true;
+    private boolean calmNeeded = true;
 
     private Button mRelaxing;
     private Button mLively;
@@ -378,7 +378,7 @@ public class LiveActivityFragment extends AbstractChartFragment {
         mCurrentSong = rootView.findViewById(R.id.current_song);
 
         mRelaxing = rootView.findViewById(R.id.relaxing);
-        mRelaxing.setEnabled(true);
+        mRelaxing.setEnabled(false);
         mRelaxing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -390,7 +390,7 @@ public class LiveActivityFragment extends AbstractChartFragment {
         });
 
         mLively = rootView.findViewById(R.id.lively);
-        mLively.setEnabled(false);
+        mLively.setEnabled(true);
         mLively.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)

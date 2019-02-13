@@ -28,40 +28,48 @@
         grid:layout_columnSpan="2"
         grid:layout_columnWeight="1" />
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v7.widget.GridLayout
         android:gravity="center_horizontal"
         grid:layout_columnWeight="1"
-        grid:layout_rowWeight="1">
+        grid:layout_rowWeight="1"
+        grid:columnCount="1"
+        grid:rowCount="3">
 
         <TextView
             android:id="@+id/livechart_heart_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="50px"
+            android:layout_marginTop="20dp"
+            grid:layout_row="0"
+            grid:layout_gravity="center"
             android:textAlignment="center"
             android:textSize="30sp" />
+
 
         <TextView
             android:id="@+id/song_played"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="50px"
+            android:layout_marginTop="20dp"
             android:textAlignment="center"
+            grid:layout_row="1"
+            grid:layout_gravity="center"
             android:text="@string/live_activity_song_played"/>
 
         <TextView
             android:id="@+id/current_song"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:layout_row="1"
+            grid:layout_gravity="center"
             android:textAlignment="center" />
-
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:paddingTop="20px">
+            grid:layout_row="2"
+            grid:layout_gravity="center">
 
             <Button
                 android:id="@+id/relaxing"
@@ -75,6 +83,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lively"/>
         </LinearLayout>
-    </LinearLayout>
+    </android.support.v7.widget.GridLayout>
 
 </android.support.v7.widget.GridLayout>
